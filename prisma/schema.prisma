@@ -1,0 +1,209 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int     @id @unique @default(autoincrement())
+  name               String
+  nim                String  @unique
+  email              String  @unique
+  password           String
+  gender             Gender
+  tempatTanggalLahir String
+  penyakitKhusus     String?
+  image              String?
+  nickName           String?
+  agama              String?
+  phone              String? @unique
+  address            String?
+  idLine             String? @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // role relation
+  UserRole            UserRole[]
+  PendaftaranHimpunan PendaftaranHimpunan[]
+  // pendaftaranProker   PendaftaranProker[]
+
+  @@map("users")
+}
+
+model Role {
+  id        Int        @id @unique @default(autoincrement())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  UserRole  UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  id     Int  @id @unique @default(autoincrement())
+  userId Int
+  roleId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role @relation(fields: [roleId], references: [id])
+
+  @@map("user_roles")
+}
+
+enum Gender {
+  LAKI_LAKI
+  PEREMPUAN
+}
+
+// Hima
+model Himpunan {
+  id                  Int                   @id @unique @default(autoincrement())
+  name                String
+  description         String?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @default(now())
+  PendaftaranHimpunan PendaftaranHimpunan[]
+
+  @@map("himpunans")
+}
+
+model Divisi {
+  id            Int             @id @unique @default(autoincrement())
+  name          String
+  description   String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  DivisiPilihan DivisiPilihan[]
+  JobdescDivisi JobdescDivisi[]
+
+  @@map("divisies")
+}
+
+model JobdescDivisi {
+  id          Int      @id @unique @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  divisiId Int
+  divisi   Divisi @relation(fields: [divisiId], references: [id], onDelete: Cascade)
+
+  @@map("jobdesc_divisies")
+}
+
+model PendaftaranHimpunan {
+  id Int @id @unique @default(autoincrement())
+
+  userId     Int      @map("pendaftaran_himpunan_user_id")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  himpunanId Int
+  himpunan   Himpunan @relation(fields: [himpunanId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  divisiPilihan DivisiPilihan[]
+
+  @@map("pendaftaran_himpunans")
+}
+
+model DivisiPilihan {
+  id                    Int                 @id @unique @default(autoincrement())
+  pendaftaranHimpunanId Int
+  pendaftaranHimpunan   PendaftaranHimpunan @relation(fields: [pendaftaranHimpunanId], references: [id], onDelete: Cascade)
+  divisiId              Int
+  divisi                Divisi              @relation(fields: [divisiId], references: [id], onDelete: Cascade)
+  alasan                String
+
+  @@map("divisi_pilihans")
+}
+
+model PengalamanOrganisasiHimpunan {
+  id      Int    @id @unique @default(autoincrement())
+  name    String
+  jabatan String
+  tahun   String
+
+  @@map("pengalaman_organisasi_himpunans")
+}
+
+// // proker
+// model Proker {
+//   id          Int      @id @unique @default(autoincrement())
+//   name        String
+//   description String?
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @default(now())
+
+//   // relasi
+//   sie                 Sie[]
+//   pendaftaranProker   PendaftaranProker[]
+//   PendaftaranHimpunan PendaftaranHimpunan[]
+
+//   @@map("prokers")
+// }
+
+// model Sie {
+//   id          Int      @id @unique @default(autoincrement())
+//   name        String
+//   description String?
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @default(now())
+
+//   // relasi
+//   prokerId   Int
+//   proker     Proker       @relation(fields: [prokerId], references: [id], onDelete: Cascade)
+//   jobdesc    Jobdesc[]
+//   siePilihan SiePilihan[]
+
+//   @@map("sies")
+// }
+
+// model Jobdesc {
+//   id          Int      @id @unique @default(autoincrement())
+//   name        String
+//   description String?
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @default(now())
+
+//   // relasi
+//   sieId Int
+//   sie   Sie @relation(fields: [sieId], references: [id], onDelete: Cascade)
+
+//   @@map("jobdesces")
+// }
+
+// model PendaftaranProker {
+//   id Int @id @unique @default(autoincrement())
+
+//   userId   Int    @map("pendaftaran_proker_user_id")
+//   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   prokerId Int
+//   proker   Proker @relation(fields: [prokerId], references: [id], onDelete: Cascade)
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @default(now())
+
+//   siePilihan SiePilihan[]
+
+//   @@map("pendaftaran_prokers")
+// }
+
+// model SiePilihan {
+//   id                Int               @id @unique @default(autoincrement())
+//   pendaftaranId     Int
+//   pendaftaranProker PendaftaranProker @relation(fields: [pendaftaranId], references: [id], onDelete: Cascade)
+// sieId             Int
+// sie               Sie               @relation(fields: [sieId], references: [id], onDelete: Cascade)
+// alasan            String
+
+// @@map("sie_pilihans")
+// }
