@@ -17,13 +17,13 @@ model User {
   email              String  @unique
   password           String
   gender             Gender
-  tempatTanggalLahir String
+  tempatTanggalLahir String?
   penyakitKhusus     String?
   image              String?
   nickName           String?
   agama              String?
-  phone              String? @unique
   address            String?
+  phone              String? @unique
   idLine             String? @unique
 
   createdAt DateTime @default(now())
@@ -65,7 +65,7 @@ enum Gender {
 // Hima
 model Himpunan {
   id                  Int                   @id @unique @default(autoincrement())
-  name                String
+  name                String                @unique
   description         String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @default(now())

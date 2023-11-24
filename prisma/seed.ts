@@ -30,7 +30,7 @@ async function main() {
         tempatTanggalLahir: "Jimbaran, 14 April 2006",
         UserRole: {
           createMany: {
-            data: [{ roleId: 1 }, { roleId: 2 }],
+            data: [{ roleId: 1 }, { roleId: 2 }, { roleId: 3 }],
           },
         },
       },

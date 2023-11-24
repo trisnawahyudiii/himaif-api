@@ -26,10 +26,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
 // routes
-import { DashboardRouter, AuthRouter } from "./routes";
+import { DashboardRouter, AuthRouter, HimpunanRouter } from "./routes";
 
 app.use("/", DashboardRouter);
 app.use("/auth", AuthRouter);
+app.use("/himpunan", HimpunanRouter);
 
 // // Get the list of endpoints
 // const endpoints = expressListEndpoints(app);
