@@ -69,17 +69,22 @@ model Himpunan {
   description         String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @default(now())
+  Divisi              Divisi[]
   PendaftaranHimpunan PendaftaranHimpunan[]
 
   @@map("himpunans")
 }
 
 model Divisi {
-  id            Int             @id @unique @default(autoincrement())
-  name          String
-  description   String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @default(now())
+  id          Int      @id @unique @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  // relation
+  himpunanId    Int
+  himpunan      Himpunan        @relation(fields: [himpunanId], references: [id], onDelete: Cascade)
   DivisiPilihan DivisiPilihan[]
   JobdescDivisi JobdescDivisi[]
 
