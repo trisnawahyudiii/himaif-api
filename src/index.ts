@@ -31,12 +31,14 @@ import {
   AuthRouter,
   HimpunanRouter,
   DivisiRouter,
+  JobdescDivisiRoutes,
 } from "./routes";
 
 app.use("/", DashboardRouter);
 app.use("/auth", AuthRouter);
 app.use("/himpunan", HimpunanRouter);
 app.use("/divisi", DivisiRouter);
+app.use("/jobdesc-divisi", JobdescDivisiRoutes);
 
 // // Get the list of endpoints
 // const endpoints = expressListEndpoints(app);
