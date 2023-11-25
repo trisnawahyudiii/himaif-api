@@ -16,7 +16,7 @@ export type UserWithUserRole = Prisma.UserGetPayload<{
 }>;
 
 export type CreatedUser = Omit<User, "password" | "createdAt" | "updatedAt"> & {
-  role: Pick<Role, "id" | "name">[];
+  role: string[];
 };
 
 export type AuthResponse = {

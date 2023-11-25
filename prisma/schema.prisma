@@ -17,13 +17,13 @@ model User {
   email              String  @unique
   password           String
   gender             Gender
-  tempatTanggalLahir String
+  tempatTanggalLahir String?
   penyakitKhusus     String?
   image              String?
   nickName           String?
   agama              String?
-  phone              String? @unique
   address            String?
+  phone              String? @unique
   idLine             String? @unique
 
   createdAt DateTime @default(now())
@@ -31,7 +31,7 @@ model User {
 
   // role relation
   UserRole            UserRole[]
-  PendaftaranHimpunan PendaftaranHimpunan[]
+  PendaftaranHimpunan PendaftaranHimpunan?
   // pendaftaranProker   PendaftaranProker[]
 
   @@map("users")
@@ -65,21 +65,26 @@ enum Gender {
 // Hima
 model Himpunan {
   id                  Int                   @id @unique @default(autoincrement())
-  name                String
+  name                String                @unique
   description         String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @default(now())
+  Divisi              Divisi[]
   PendaftaranHimpunan PendaftaranHimpunan[]
 
   @@map("himpunans")
 }
 
 model Divisi {
-  id            Int             @id @unique @default(autoincrement())
-  name          String
-  description   String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @default(now())
+  id          Int      @id @unique @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  // relation
+  himpunanId    Int
+  himpunan      Himpunan        @relation(fields: [himpunanId], references: [id], onDelete: Cascade)
   DivisiPilihan DivisiPilihan[]
   JobdescDivisi JobdescDivisi[]
 
@@ -100,17 +105,18 @@ model JobdescDivisi {
 }
 
 model PendaftaranHimpunan {
-  id Int @id @unique @default(autoincrement())
+  id                  Int      @id @unique @default(autoincrement())
+  bersediaDipindahkan Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @default(now())
 
-  userId     Int      @map("pendaftaran_himpunan_user_id")
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  himpunanId Int
-  himpunan   Himpunan @relation(fields: [himpunanId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-
-  divisiPilihan DivisiPilihan[]
+  userId                                   Int                                       @unique @map("pendaftaran_himpunan_user_id")
+  user                                     User                                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  himpunanId                               Int
+  himpunan                                 Himpunan                                  @relation(fields: [himpunanId], references: [id], onDelete: Cascade)
+  divisiPilihan                            DivisiPilihan[]
+  PengalamanOrganisasiHimpunan             PengalamanOrganisasiHimpunan[]
+  FasilitasYangDimilikiPendaftaranHimpunan FasilitasYangDimilikiPendaftaranHimpunan?
 
   @@map("pendaftaran_himpunans")
 }
@@ -127,12 +133,29 @@ model DivisiPilihan {
 }
 
 model PengalamanOrganisasiHimpunan {
-  id      Int    @id @unique @default(autoincrement())
-  name    String
-  jabatan String
-  tahun   String
+  id                    Int                 @id @unique @default(autoincrement())
+  name                  String
+  jabatan               String
+  tahun                 String
+  pendaftaranHimpunanId Int
+  pendaftaranHimpunan   PendaftaranHimpunan @relation(fields: [pendaftaranHimpunanId], references: [id], onDelete: Cascade)
 
   @@map("pengalaman_organisasi_himpunans")
+}
+
+model FasilitasYangDimilikiPendaftaranHimpunan {
+  id                    Int                 @id @unique @default(autoincrement())
+  motor                 Boolean             @default(false)
+  mobil                 Boolean             @default(false)
+  handphone             Boolean             @default(false)
+  laptop                Boolean             @default(false)
+  handycam              Boolean             @default(false)
+  camera                Boolean             @default(false)
+  other                 String?
+  pendaftaranHimpunanId Int                 @unique
+  pendaftaranimpunan    PendaftaranHimpunan @relation(fields: [pendaftaranHimpunanId], references: [id], onDelete: Cascade)
+
+  @@map("fasilitas_yang_dimiliki_pendaftaran_himpunan")
 }
 
 // // proker
