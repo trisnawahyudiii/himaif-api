@@ -7,7 +7,7 @@ const JobdescDivisiRoutes = express.Router();
 
 JobdescDivisiRoutes.get(
   "/list/:divisiId",
-  authorize(["SUPER_ADMIN", "ADMIN"]),
+  authorize(),
   JobdescDivisiController.list
 );
 JobdescDivisiRoutes.get(

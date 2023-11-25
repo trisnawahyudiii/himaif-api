@@ -5,11 +5,7 @@ import { authorize } from "../middlewares";
 
 const DivisiRouter = express.Router();
 
-DivisiRouter.get(
-  "/list/:himpunanId",
-  authorize(["SUPER_ADMIN", "ADMIN"]),
-  DivisiController.list
-);
+DivisiRouter.get("/list/:himpunanId", authorize(), DivisiController.list);
 DivisiRouter.get(
   "/:divisiId",
   authorize(["SUPER_ADMIN", "ADMIN"]),

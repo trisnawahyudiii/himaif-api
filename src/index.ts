@@ -32,6 +32,7 @@ import {
   HimpunanRouter,
   DivisiRouter,
   JobdescDivisiRoutes,
+  PendaftaranHimpunanRoutes,
 } from "./routes";
 
 app.use("/", DashboardRouter);
@@ -39,6 +40,7 @@ app.use("/auth", AuthRouter);
 app.use("/himpunan", HimpunanRouter);
 app.use("/divisi", DivisiRouter);
 app.use("/jobdesc-divisi", JobdescDivisiRoutes);
+app.use("/daftar-himpunan", PendaftaranHimpunanRoutes);
 
 // // Get the list of endpoints
 // const endpoints = expressListEndpoints(app);

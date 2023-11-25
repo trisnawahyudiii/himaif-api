@@ -22,6 +22,82 @@ import { findUserByEmail } from "../models/user";
 import path from "path";
 import fs from "fs";
 
+// list
+export const list = async (req: Request, res: Response) => {
+  try {
+    const data = await db.user.findMany({
+      include: {
+        UserRole: {
+          select: {
+            role: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const userData = data.map((user) => userCreatePayloadMapper(user));
+
+    const successResponse: SuccessResponse<CreatedUser[]> = {
+      meta: {
+        success: true,
+        message: "User data obtained successfully",
+      },
+      payload: userData,
+    };
+
+    return res.status(200).json(successResponse);
+  } catch (error) {
+    console.log(error);
+    handleError(error, res);
+  }
+};
+
+// get single
+// list
+export const getSingle = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+
+    const data = await db.user.findUnique({
+      where: { id: parseInt(userId) },
+      include: {
+        UserRole: {
+          select: {
+            role: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!data) throw createHttpError(404, "User not found");
+
+    const userData = userCreatePayloadMapper(data);
+
+    const successResponse: SuccessResponse<CreatedUser> = {
+      meta: {
+        success: true,
+        message: "User data obtained successfully",
+      },
+      payload: userData,
+    };
+
+    return res.status(200).json(successResponse);
+  } catch (error) {
+    console.log(error);
+    handleError(error, res);
+  }
+};
+
 // register
 export const register = async (req: Request, res: Response) => {
   const body = req.body;
@@ -188,11 +264,12 @@ export const updateProfile = async (req: Request, res: Response) => {
     // create image URL
     if (req.file?.filename) {
       // delete old image
+      console.log(user.image?.split("/")[4]);
       if (user.image) {
         const imgPath = path.join(
           __dirname,
-          "../../../public/uploads/",
-          user.image.split("/")[4]
+          "../../public/uploads/",
+          user.image?.split("/")[4]
         );
         console.log("imgpath", imgPath);
         fs.unlinkSync(imgPath);
@@ -244,11 +321,9 @@ export const updateProfile = async (req: Request, res: Response) => {
 
 // get user profile
 export const profile = async (req: Request, res: Response) => {
-  console.log(req.app.locals.credential);
-
   try {
     const user = await db.user.findUnique({
-      where: { id: req.app.locals.credential.id },
+      where: { id: req.user.id },
     });
 
     if (!user) {

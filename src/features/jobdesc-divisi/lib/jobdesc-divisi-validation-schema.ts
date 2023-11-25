@@ -11,3 +11,10 @@ export const jobdescDivisiValidationSchema = z.object({
     })
   ),
 });
+
+export const updateJobdescDivisiValidationSchema = z.object({
+  name: z.string({ required_error: "jobdesc name is required" }),
+  description: z.string({
+    required_error: "jobdesc description is required",
+  }),
+});
