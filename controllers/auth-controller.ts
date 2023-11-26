@@ -62,6 +62,7 @@ export const list = async (req: Request, res: Response) => {
 export const getSingle = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
+    if (!userId) throw createHttpError(404, "user id is required");
 
     const data = await db.user.findUnique({
       where: { id: parseInt(userId) },
@@ -238,7 +239,8 @@ export const logout = (req: Request, res: Response) => {
 // update user profile
 export const updateProfile = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user.id;
+
     if (!userId) throw createHttpError(404, "user id is required");
 
     const user = await db.user.findUnique({
@@ -322,8 +324,12 @@ export const updateProfile = async (req: Request, res: Response) => {
 // get user profile
 export const profile = async (req: Request, res: Response) => {
   try {
+    const userId = req.user.id;
+
+    if (!userId) throw createHttpError(404, "user id is required");
+
     const user = await db.user.findUnique({
-      where: { id: req.user.id },
+      where: { id: parseInt(userId) },
     });
 
     if (!user) {

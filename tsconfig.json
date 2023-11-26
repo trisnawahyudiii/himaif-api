@@ -7,10 +7,16 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": "./src",
-    "typeRoots": ["./src/types", "./node_modules/@types"]
+    "rootDir": ".",
+    "baseUrl": ".",
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": ["src/**/*.ts", "index.d.ts"],
+  "include": [
+    "./**/*.ts",
+    "index.d.ts",
+    "./views/*",
+    "./public/*",
+    "./prisma/*"
+  ],
   "exclude": ["node_modules"]
 }
