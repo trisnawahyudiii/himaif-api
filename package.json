@@ -2,10 +2,10 @@
   "name": "himaif-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bin/www.ts",
   "scripts": {
-    "start": "ts-node src/bin/www.ts",
-    "dev": "nodemon src/bin/www.ts",
+    "start": "node dist/bin/www.js",
+    "dev": "nodemon bin/www.ts",
     "build": "tsc",
     "db:setup": "npx prisma migrate dev && npx prisma generate && npx prisma db seed"
   },

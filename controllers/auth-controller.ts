@@ -6,7 +6,6 @@ import { Prisma, User, UserRole } from "@prisma/client";
 import { Request, Response } from "express";
 import {
   ComparePass,
-  assignRoleValidationSchema,
   createToken,
   encryptPass,
   userCreatePayloadMapper,
@@ -62,6 +61,7 @@ export const list = async (req: Request, res: Response) => {
 export const getSingle = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
+    if (!userId) throw createHttpError(404, "user id is required");
 
     const data = await db.user.findUnique({
       where: { id: parseInt(userId) },
@@ -238,7 +238,8 @@ export const logout = (req: Request, res: Response) => {
 // update user profile
 export const updateProfile = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user.id;
+
     if (!userId) throw createHttpError(404, "user id is required");
 
     const user = await db.user.findUnique({
@@ -322,8 +323,12 @@ export const updateProfile = async (req: Request, res: Response) => {
 // get user profile
 export const profile = async (req: Request, res: Response) => {
   try {
+    const userId = req.user.id;
+
+    if (!userId) throw createHttpError(404, "user id is required");
+
     const user = await db.user.findUnique({
-      where: { id: req.user.id },
+      where: { id: parseInt(userId) },
     });
 
     if (!user) {
@@ -347,42 +352,6 @@ export const profile = async (req: Request, res: Response) => {
 
 export const deleteUser = (req: Request, res: Response) => {
   try {
-  } catch (error) {
-    console.log(error);
-    handleError(error, res);
-  }
-};
-
-export const assignRole = async (req: Request, res: Response) => {
-  try {
-    const validatedData = assignRoleValidationSchema.parse(req.body);
-
-    const targetUser = await db.user.findUnique({
-      where: { id: validatedData.userId },
-    });
-    if (!targetUser) throw createHttpError(404, "user not found");
-
-    const targetRole = await db.role.findUnique({
-      where: { id: validatedData.roleId },
-    });
-    if (!targetRole) throw createHttpError(404, "role not found");
-
-    const result = await db.userRole.create({
-      data: {
-        userId: targetUser.id,
-        roleId: targetRole.id,
-      },
-    });
-
-    const successResponse: SuccessResponse<UserRole> = {
-      meta: {
-        success: true,
-        message: "Role successfully assigned",
-      },
-      payload: result,
-    };
-
-    return res.status(201).json(successResponse);
   } catch (error) {
     console.log(error);
     handleError(error, res);

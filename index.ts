@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // static
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "./public")));
 
 // routes
 import {
@@ -33,10 +33,12 @@ import {
   DivisiRouter,
   JobdescDivisiRoutes,
   PendaftaranHimpunanRoutes,
+  RoleRouter,
 } from "./routes";
 
 app.use("/", DashboardRouter);
 app.use("/auth", AuthRouter);
+app.use("/role", RoleRouter);
 app.use("/himpunan", HimpunanRouter);
 app.use("/divisi", DivisiRouter);
 app.use("/jobdesc-divisi", JobdescDivisiRoutes);

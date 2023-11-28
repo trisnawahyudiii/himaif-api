@@ -5,7 +5,7 @@ dotenv.config;
  * Module dependencies.
  */
 
-import app from "..";
+import app from "../index";
 
 import debug from "debug";
 debug("server:server");
