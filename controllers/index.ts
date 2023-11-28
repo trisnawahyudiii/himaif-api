@@ -3,6 +3,7 @@ import * as HimpunanControler from "./himpunan-controller";
 import * as DivisiController from "./divisi-controller";
 import * as JobdescDivisiController from "./jobdesc-divisi-controller";
 import * as PendaftaranHimpunanController from "./pendaftaran-himpunan-controller";
+import * as RoleController from "./role-controller";
 
 export {
   AuthController,
@@ -10,4 +11,5 @@ export {
   DivisiController,
   JobdescDivisiController,
   PendaftaranHimpunanController,
+  RoleController,
 };
