@@ -33,10 +33,12 @@ import {
   DivisiRouter,
   JobdescDivisiRoutes,
   PendaftaranHimpunanRoutes,
+  RoleRouter,
 } from "./routes";
 
 app.use("/", DashboardRouter);
 app.use("/auth", AuthRouter);
+app.use("/role", RoleRouter);
 app.use("/himpunan", HimpunanRouter);
 app.use("/divisi", DivisiRouter);
 app.use("/jobdesc-divisi", JobdescDivisiRoutes);
