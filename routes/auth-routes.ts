@@ -11,6 +11,12 @@ AuthRouter.post("/logout", authorize(), AuthController.logout);
 
 // user management
 AuthRouter.get("/", authorize(["SUPER_ADMIN", "ADMIN"]), AuthController.list);
+AuthRouter.get("/profile", authorize(), AuthController.profile);
+AuthRouter.post(
+  "/assign-role",
+  authorize(["SUPER_ADMIN"]),
+  AuthController.assignRole
+);
 AuthRouter.get(
   "/:userId",
   authorize(["SUPER_ADMIN", "ADMIN"]),
@@ -22,12 +28,6 @@ AuthRouter.put(
   upload.single("image"),
   convertToWebP,
   AuthController.updateProfile
-);
-AuthRouter.get("/profile", authorize(), AuthController.profile);
-AuthRouter.post(
-  "/assign-role",
-  authorize(["SUPER_ADMIN"]),
-  AuthController.assignRole
 );
 
 export { AuthRouter };
