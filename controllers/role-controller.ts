@@ -220,7 +220,7 @@ export const assignRole = async (req: Request, res: Response) => {
     return res.status(201).json(successResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -252,6 +252,6 @@ export const unAssignRole = async (req: Request, res: Response) => {
     return res.status(200).json(successResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };

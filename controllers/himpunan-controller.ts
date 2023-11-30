@@ -27,7 +27,7 @@ export const create = async (req: Request, res: Response) => {
     return res.status(201).json(SuccessResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -46,7 +46,7 @@ export const list = async (req: Request, res: Response) => {
     return res.status(200).json(SuccessResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -73,7 +73,7 @@ export const getSingle = async (req: Request, res: Response) => {
     return res.status(200).json(SuccessResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -108,7 +108,7 @@ export const update = async (req: Request, res: Response) => {
     return res.status(200).json(SuccessResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -139,6 +139,6 @@ export const destroy = async (req: Request, res: Response) => {
     return res.status(200).json(SuccessResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };

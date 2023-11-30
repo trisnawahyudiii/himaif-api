@@ -52,7 +52,7 @@ export const list = async (req: Request, res: Response) => {
     return res.status(200).json(successResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -94,7 +94,7 @@ export const getSingle = async (req: Request, res: Response) => {
     return res.status(200).json(successResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -186,7 +186,7 @@ export const register = async (req: Request, res: Response) => {
     res.status(201).json(SuccessResponse);
   } catch (error) {
     console.error(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -224,7 +224,7 @@ export const login = async (req: Request, res: Response) => {
     res.status(200).json(successResponse);
   } catch (error) {
     console.error(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -316,7 +316,7 @@ export const updateProfile = async (req: Request, res: Response) => {
     return res.status(200).json(successResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -346,7 +346,7 @@ export const profile = async (req: Request, res: Response) => {
     res.status(200).json(successResponse);
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
 
@@ -354,6 +354,6 @@ export const deleteUser = (req: Request, res: Response) => {
   try {
   } catch (error) {
     console.log(error);
-    handleError(error, res);
+    return handleError(error, res);
   }
 };
