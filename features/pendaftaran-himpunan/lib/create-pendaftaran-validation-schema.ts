@@ -1,6 +1,11 @@
 import z from "zod";
 
 export const createPendaftaranValidationSchema = z.object({
+  hobi: z.string({ required_error: "hobi is required" }),
+  skill: z.string({ required_error: "skill is required" }),
+  alasanMasukHimpunan: z.string({
+    required_error: "alasanMasukHimpunan is required",
+  }),
   bersediaDipindahkan: z.boolean({
     required_error: "bersediaDipindahkan is required",
   }),

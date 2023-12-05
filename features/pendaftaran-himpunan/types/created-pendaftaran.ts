@@ -32,4 +32,7 @@ export type CreatedPendaftaranHimpunan = {
   }[];
   fasilitasYangDimiliki: FasilitasYangDimilikiPendaftaranHimpunan | null;
   bersediaDipindahkan: boolean;
+  hobi: string;
+  skill: string;
+  alasanMasukHimpunan: string;
 };

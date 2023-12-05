@@ -107,6 +107,9 @@ model JobdescDivisi {
 
 model PendaftaranHimpunan {
   id                  Int      @id @unique @default(autoincrement())
+  hobi                String
+  skill               String
+  alasanMasukHimpunan String
   bersediaDipindahkan Boolean  @default(true)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @default(now())

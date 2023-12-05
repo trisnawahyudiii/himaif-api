@@ -183,7 +183,7 @@ export const register = async (req: Request, res: Response) => {
       },
     };
 
-    res.status(201).json(SuccessResponse);
+    return res.status(201).json(SuccessResponse);
   } catch (error) {
     console.error(error);
     return handleError(error, res);
@@ -221,7 +221,7 @@ export const login = async (req: Request, res: Response) => {
       },
     };
 
-    res.status(200).json(successResponse);
+    return res.status(200).json(successResponse);
   } catch (error) {
     console.error(error);
     return handleError(error, res);

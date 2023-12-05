@@ -22,6 +22,9 @@ export const create = async (req: Request, res: Response) => {
     const data = await db.pendaftaranHimpunan.create({
       data: {
         bersediaDipindahkan: validatedData.bersediaDipindahkan,
+        skill: validatedData.skill,
+        hobi: validatedData.hobi,
+        alasanMasukHimpunan: validatedData.alasanMasukHimpunan,
         himpunanId: validatedData.himpunanId,
         userId: req.user.id,
         divisiPilihan: {
