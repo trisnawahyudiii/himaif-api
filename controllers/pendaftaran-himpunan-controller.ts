@@ -22,7 +22,6 @@ export const create = async (req: Request, res: Response) => {
     const data = await db.pendaftaranHimpunan.create({
       data: {
         bersediaDipindahkan: validatedData.bersediaDipindahkan,
-        skill: validatedData.skill,
         hobi: validatedData.hobi,
         alasanMasukHimpunan: validatedData.alasanMasukHimpunan,
         himpunanId: validatedData.himpunanId,
@@ -46,6 +45,9 @@ export const create = async (req: Request, res: Response) => {
         },
         FasilitasYangDimilikiPendaftaranHimpunan: {
           create: validatedData.fasilitasYangDimiliki,
+        },
+        skillPendaftaranHimpunan: {
+          create: validatedData.skillPendaftaranHimpunan,
         },
       },
       include: {
@@ -73,6 +75,7 @@ export const create = async (req: Request, res: Response) => {
         },
         PengalamanOrganisasiHimpunan: true,
         FasilitasYangDimilikiPendaftaranHimpunan: true,
+        skillPendaftaranHimpunan: true,
       },
     });
 
@@ -122,6 +125,7 @@ export const list = async (req: Request, res: Response) => {
         },
         PengalamanOrganisasiHimpunan: true,
         FasilitasYangDimilikiPendaftaranHimpunan: true,
+        skillPendaftaranHimpunan: true,
       },
     });
 
@@ -184,6 +188,7 @@ export const getSingle = async (req: Request, res: Response) => {
         },
         PengalamanOrganisasiHimpunan: true,
         FasilitasYangDimilikiPendaftaranHimpunan: true,
+        skillPendaftaranHimpunan: true,
       },
     });
 
@@ -252,6 +257,7 @@ export const destroy = async (req: Request, res: Response) => {
         },
         PengalamanOrganisasiHimpunan: true,
         FasilitasYangDimilikiPendaftaranHimpunan: true,
+        skillPendaftaranHimpunan: true,
       },
     });
 

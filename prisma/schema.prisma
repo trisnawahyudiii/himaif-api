@@ -108,7 +108,6 @@ model JobdescDivisi {
 model PendaftaranHimpunan {
   id                  Int      @id @unique @default(autoincrement())
   hobi                String
-  skill               String
   alasanMasukHimpunan String
   bersediaDipindahkan Boolean  @default(true)
   createdAt           DateTime @default(now())
@@ -121,6 +120,7 @@ model PendaftaranHimpunan {
   divisiPilihan                            DivisiPilihan[]
   PengalamanOrganisasiHimpunan             PengalamanOrganisasiHimpunan[]
   FasilitasYangDimilikiPendaftaranHimpunan FasilitasYangDimilikiPendaftaranHimpunan?
+  skillPendaftaranHimpunan                 skillPendaftaranHimpunan?
 
   @@map("pendaftaran_himpunans")
 }
@@ -160,6 +160,30 @@ model FasilitasYangDimilikiPendaftaranHimpunan {
   pendaftaranimpunan    PendaftaranHimpunan @relation(fields: [pendaftaranHimpunanId], references: [id], onDelete: Cascade)
 
   @@map("fasilitas_yang_dimiliki_pendaftaran_himpunan")
+}
+
+model skillPendaftaranHimpunan {
+  id              Int     @id @unique @default(autoincrement())
+  publicSpeaking  Boolean @default(false)
+  modernDance     Boolean @default(false)
+  tariTraditional Boolean @default(false)
+  alatMusik       Boolean @default(false)
+  menyanyi        Boolean @default(false)
+  fotografi       Boolean @default(false)
+  videografi      Boolean @default(false)
+  design          Boolean @default(false)
+  buluTangkis     Boolean @default(false)
+  futsal          Boolean @default(false)
+  catur           Boolean @default(false)
+  pubg            Boolean @default(false)
+  valorant        Boolean @default(false)
+  mobileLegend    Boolean @default(false)
+  other           String?
+
+  pendaftaranHimpunanId Int                 @unique
+  pendaftaranimpunan    PendaftaranHimpunan @relation(fields: [pendaftaranHimpunanId], references: [id], onDelete: Cascade)
+
+  @@map("skill_pendaftaran_himpunan")
 }
 
 // // proker

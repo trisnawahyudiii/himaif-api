@@ -2,7 +2,6 @@ import z from "zod";
 
 export const createPendaftaranValidationSchema = z.object({
   hobi: z.string({ required_error: "hobi is required" }),
-  skill: z.string({ required_error: "skill is required" }),
   alasanMasukHimpunan: z.string({
     required_error: "alasanMasukHimpunan is required",
   }),
@@ -50,6 +49,51 @@ export const createPendaftaranValidationSchema = z.object({
     laptop: z.boolean({ required_error: "facility 'laptop' is required" }),
     handycam: z.boolean({ required_error: "facility 'handycam' is required" }),
     camera: z.boolean({ required_error: "facility 'camera' is required" }),
+    other: z.optional(z.string()),
+  }),
+  skillPendaftaranHimpunan: z.object({
+    publicSpeaking: z.boolean({
+      required_error: "skill 'publicSpeaking' is required",
+    }),
+    modernDance: z.boolean({
+      required_error: "skill 'modernDance' is required",
+    }),
+    tariTraditional: z.boolean({
+      required_error: "skill 'tariTraditional' is required",
+    }),
+    alatMusik: z.boolean({
+      required_error: "skill 'alatMusik' is required",
+    }),
+    menyanyi: z.boolean({
+      required_error: "skill 'menyanyi' is required",
+    }),
+    fotografi: z.boolean({
+      required_error: "skill 'fotografi' is required",
+    }),
+    videografi: z.boolean({
+      required_error: "skill 'videografi' is required",
+    }),
+    design: z.boolean({
+      required_error: "skill 'design' is required",
+    }),
+    buluTangkis: z.boolean({
+      required_error: "skill 'buluTangkis' is required",
+    }),
+    futsal: z.boolean({
+      required_error: "skill 'futsal' is required",
+    }),
+    catur: z.boolean({
+      required_error: "skill 'catur' is required",
+    }),
+    pubg: z.boolean({
+      required_error: "skill 'pubg' is required",
+    }),
+    mobileLegend: z.boolean({
+      required_error: "skill 'mobileLegend' is required",
+    }),
+    valorant: z.boolean({
+      required_error: "skill 'valorant' is required",
+    }),
     other: z.optional(z.string()),
   }),
 });

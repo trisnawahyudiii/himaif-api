@@ -1,6 +1,7 @@
 import {
   FasilitasYangDimilikiPendaftaranHimpunan,
   Prisma,
+  skillPendaftaranHimpunan,
 } from "@prisma/client";
 
 export type CreatedPendaftaranHimpunan = {
@@ -31,8 +32,8 @@ export type CreatedPendaftaranHimpunan = {
     tahun: string;
   }[];
   fasilitasYangDimiliki: FasilitasYangDimilikiPendaftaranHimpunan | null;
+  skill: skillPendaftaranHimpunan | null;
   bersediaDipindahkan: boolean;
   hobi: string;
-  skill: string;
   alasanMasukHimpunan: string;
 };

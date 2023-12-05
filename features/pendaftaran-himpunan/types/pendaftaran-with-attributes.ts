@@ -27,5 +27,6 @@ export type PendaftaranHimpunanWithAttributes =
       };
       PengalamanOrganisasiHimpunan: true;
       FasilitasYangDimilikiPendaftaranHimpunan: true;
+      skillPendaftaranHimpunan: true;
     };
   }>;

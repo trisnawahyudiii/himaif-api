@@ -52,7 +52,7 @@ export const pendaftaranPayloadMapper = (
     fasilitasYangDimiliki: payload.FasilitasYangDimilikiPendaftaranHimpunan,
     bersediaDipindahkan: payload.bersediaDipindahkan,
     hobi: payload.hobi,
-    skill: payload.skill,
+    skill: payload.skillPendaftaranHimpunan,
     alasanMasukHimpunan: payload.alasanMasukHimpunan,
   };
 };
